@@ -2,7 +2,7 @@
 
 English | [中文](./README.zh-CN.md)
 
-This project merges two ONNX policy models into a single ONNX file. The merged model keeps both policy subgraphs and uses an ONNX `If` node to choose the execution path through an external `switch` input.
+This project merges two ONNX policy models into a single ONNX file. The core idea is to place full-model graphs from different ONNX files side by side, then encapsulate them into a new ONNX model. Subgraph switching is implemented with ONNX official conditional branch operators. For observation-input differences across subgraphs, the new ONNX can expose the union of required inputs, and each selected subgraph can map only the needed parts internally. For possible joint-action discontinuities during model switching on real hardware, smoothing can be applied in ROS deployment code.
 
 Default model roles:
 
